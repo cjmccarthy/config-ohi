@@ -1,0 +1,12 @@
+-
+  inventory: my/path/one
+  path: /Users/cmccarthy/confs/goconf1.yaml
+  type: yaml
+-
+  inventory: my/path/two
+  path: /Users/cmccarthy/confs/goconf2.json
+  type: json
+#-
+#  inventory: my/path/three
+#  path: /Users/cmccarthy/confs/goconf3.json
+#  type: json
