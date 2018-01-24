@@ -6,6 +6,10 @@
   inventory: my/path/two
   path: /Users/cmccarthy/confs/goconf2.json
   type: json
+-
+  inventory: my/path/four
+  path: /Users/cmccarthy/confs/goconf4.xml
+  type: xml
 #-
 #  inventory: my/path/three
 #  path: /Users/cmccarthy/confs/goconf3.json

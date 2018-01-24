@@ -3,6 +3,7 @@ package main
 import (
 	"encoding/json"
 	"fmt"
+	"github.com/clbanning/mxj/x2j"
 	"github.com/ghodss/yaml"
 	"io/ioutil"
 	"os"
@@ -56,6 +57,11 @@ func extractConfs(fileDef FileDef) interface{} {
 		check(err)
 		return jdata
 	case "xml":
+		invdata, err := x2j.XmlToJson(fdata)
+		check(err)
+		var jdata interface{}
+		err = json.Unmarshal(invdata, &jdata)
+		return jdata
 	case "properties":
 	default:
 		fmt.Printf("Unsupported file adapter type %s:", ftype)
