@@ -32,25 +32,8 @@ func check(e error) {
 }
 
 func sanitizeLeaf(leaf interface{}) string {
-	/*
-		fmt.Printf("leaf: %s\n", leaf)
-		fmt.Printf("leaf: %s\n", reflect.TypeOf(leaf))
-			stuff := make([]map[string]interface{}, 2)
-			stuff1 := make(map[string]interface{})
-			stuff2 := make(map[string]interface{})
-			stuff1["qwer"] = "asdf"
-			stuff2["uiop"] = "poui"
-			stuff[0] = stuff1
-			stuff[1] = stuff2
-			fmt.Printf("stuff: %s\n", stuff)
-			fmt.Printf("stuff: %s\n", reflect.TypeOf(stuff))
-	*/
 	marshalled, err := json.Marshal(leaf)
 	check(err)
-	/*
-		fmt.Printf("marshalled: %s\n", marshalled)
-		fmt.Printf("sanit: %s\n", string(marshalled))
-	*/
 	return string(marshalled)
 }
 
@@ -65,11 +48,13 @@ func sanitizeMap(jdata interface{}) interface{} {
 }
 
 func sanitizeSlice(jdata interface{}) interface{} {
+
 	jslice := reflect.ValueOf(jdata)
-	sanitized := make([]interface{}, jslice.Len())
+	sanitized := make(map[int]interface{}, jslice.Len())
 	for i := 0; i < jslice.Len(); i++ {
 		sanitized[i] = sanitizeLeaf(jslice.Index(i).Interface())
 	}
+
 	return sanitized
 }
 
@@ -86,14 +71,12 @@ func extractConfs(fileDef FileDef) interface{} {
 	case "json":
 		invdata = fdata
 	case "xml":
-		/*
-			invdata, err := x2j.XmlToJson(fdata)
-			check(err)
-		*/
-		xdata, err := mxj.NewMapXmlSeq(fdata)
+		//xdata, err := mxj.NewMapXmlSeq(fdata)
+		xdata, err := mxj.NewMapXml(fdata)
 		check(err)
 		invdata, err = xdata.Json()
 		check(err)
+	//TODO
 	//case "properties":
 	default:
 		fmt.Printf("Unsupported file adapter type %s:", ftype)
@@ -103,7 +86,6 @@ func extractConfs(fileDef FileDef) interface{} {
 	check(err)
 
 	// Encode any leaf maps as scalars to adhere to infra sdk spec
-	// TODO: WTF
 	var sanitized interface{}
 	switch reflect.TypeOf(jdata).Kind() {
 	case reflect.Map:
