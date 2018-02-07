@@ -3,7 +3,6 @@ package main
 import (
 	"encoding/json"
 	"fmt"
-	//"github.com/clbanning/mxj/x2j"
 	"github.com/clbanning/mxj"
 	"github.com/ghodss/yaml"
 	"io/ioutil"
@@ -47,6 +46,7 @@ func sanitizeMap(jdata interface{}) interface{} {
 	return sanitized
 }
 
+//Uses slice index as map key
 func sanitizeSlice(jdata interface{}) interface{} {
 
 	jslice := reflect.ValueOf(jdata)
@@ -65,13 +65,17 @@ func extractConfs(fileDef FileDef) interface{} {
 
 	var invdata []byte
 	switch ftype := fileDef.Type; ftype {
+	case "text":
+		//No structure - return raw text
+		sanitized := make(map[string]string, 1)
+		sanitized["data"] = string(fdata)
+		return sanitized
 	case "yaml":
 		invdata, err = yaml.YAMLToJSON(fdata)
 		check(err)
 	case "json":
 		invdata = fdata
 	case "xml":
-		//xdata, err := mxj.NewMapXmlSeq(fdata)
 		xdata, err := mxj.NewMapXml(fdata)
 		check(err)
 		invdata, err = xdata.Json()
