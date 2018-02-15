@@ -1,0 +1,4 @@
+integration_name: haus.chris.nringest
+instances:
+  - name: conf1
+      command: inventory

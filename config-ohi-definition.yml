@@ -1,0 +1,9 @@
+name: haus.chris.nringest
+protocol_version: 1
+description: Add config files as NR Inventory
+os: linux
+commands:
+  inventory:
+    command:
+      - ./ingestor
+      - --nr_ingest_conf ./test.yml  
