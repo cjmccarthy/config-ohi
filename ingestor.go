@@ -6,7 +6,7 @@ import (
 	"github.com/clbanning/mxj"
 	"github.com/ghodss/yaml"
 	"io/ioutil"
-	//	"os"
+	"os"
 	"reflect"
 )
 
@@ -104,11 +104,9 @@ func extractConfs(fileDef FileDef) interface{} {
 }
 
 func main() {
-	/*
-		args := os.Args[1:]
-		confData, err := ioutil.ReadFile(args[0])
-	*/
-	confData, err := ioutil.ReadFile("./test.yml")
+	conFile := os.Getenv("NR_INGEST_CONF")
+	confData, err := ioutil.ReadFile(conFile)
+
 	check(err)
 
 	confs := []FileDef{}

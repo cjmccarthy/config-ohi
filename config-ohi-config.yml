@@ -2,3 +2,5 @@ integration_name: haus.chris.nringest
 instances:
   - name: conf1
       command: inventory
+      arguments:
+        nr_ingest_conf: ./test.yml
