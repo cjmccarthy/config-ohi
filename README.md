@@ -6,6 +6,9 @@ This is an on-host integration for New Relic Infrastructure. Its primary purpose
 ## Getting Started
 
 ### Compilation
+
+If you wish to skip compilation and simply download the binaries, proceed to the latest release and download the relevant binary for your OS. You will still need to download the config files described in the following section.
+
 To begin, read the official New Relic documentation on what an infrastructure integration is, and how to get started with the SDK
 
 [Integration Description](https://docs.newrelic.com/docs/integrations/integrations-sdk/getting-started/intro-infrastructure-integrations-sdk)
@@ -52,7 +55,7 @@ xml | Top level key-value pairs will be unwrapped. Any nested data will appear a
 
 If your configurations are highly nested, it is recommended to use the "text" type for readability. However, if they are fairly flat, picking the correct type will make the inventory data more rich by breaking down changes to the key-value level.
 
-The final step is to define the prefix under which you would like these inventory items to appear inside of the Infrastructure UI. To do this, modify line 10 of config-ohi-definition.yml
+The next step is to define the prefix under which you would like these inventory items to appear inside of the Infrastructure UI. To do this, modify line 10 of config-ohi-definition.yml
 
 `prefix: my/prefix`
 
